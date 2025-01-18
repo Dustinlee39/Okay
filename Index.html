@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video with Custom Play Button</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #000;
+    }
+    .video-container {
+      position: relative;
+      width: 640px;
+      height: 360px;
+      display: none; /* Initially hide the video */
+    }
+    #player {
+      width: 100%;
+      height: 100%;
+    }
+    #playButton {
+      position: absolute;
+      width: 192px; /* Triple the original size */
+      height: 96px;
+      font-size: 54px; /* Triple the font size */
+      background-color: #ff5722;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    #playButton:hover {
+      background-color: #e64a19;
+    }
+  </style>
+</head>
+<body>
+  <!-- Overlay Play Button -->
+  <div id="playOverlay" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; background-color: #000;">
+    <button id="playButton">Play Me</button>
+  </div>
+
+  <!-- Video Container -->
+  <div class="video-container" id="videoContainer">
+    <div id="player"></div>
+  </div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    let player;
+    const playButton = document.getElementById('playButton');
+    const playOverlay = document.getElementById('playOverlay');
+    const videoContainer = document.getElementById('videoContainer');
+
+    // Load YouTube IFrame API
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        videoId: 'q2xa-Vf54RM',
+        playerVars: {
+          autoplay: 0,
+          controls: 1,
+          modestbranding: 1,
+          rel: 0
+        },
+        events: {
+          onReady: onPlayerReady
+        }
+      });
+    }
+
+    // Handle Player Ready
+    function onPlayerReady(event) {
+      playButton.addEventListener('click', () => {
+        // Hide the play button overlay
+        playOverlay.style.display = 'none';
+        videoContainer.style.display = 'block'; // Show the video container
+        player.playVideo(); // Start video playback
+      });
+    }
+  </script>
+</body>
+</html>
