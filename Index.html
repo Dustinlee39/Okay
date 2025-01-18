@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Video with Custom Play Button</title>
+  <title>YouTube Video with Custom Play Button</title>
   <style>
     body {
       margin: 0;
@@ -25,8 +25,8 @@
     }
     #playButton {
       position: absolute;
-      width: 192px; /* Triple the original size */
-      height: 96px;
+      width: 192px; /* Original width * 3 */
+      height: 96px; /* Original height * 3 */
       font-size: 54px; /* Triple the font size */
       background-color: #ff5722;
       color: #fff;
@@ -65,12 +65,12 @@
     // Load YouTube IFrame API
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('player', {
-        videoId: 'q2xa-Vf54RM',
+        videoId: 'q2xa-Vf54RM', // Your YouTube video ID
         playerVars: {
-          autoplay: 0,
-          controls: 1,
-          modestbranding: 1,
-          rel: 0
+          autoplay: 0, // Initially not autoplaying
+          controls: 1, // Show player controls
+          modestbranding: 1, // Minimal YouTube branding
+          rel: 0 // Disable related videos at the end
         },
         events: {
           onReady: onPlayerReady
@@ -81,10 +81,12 @@
     // Handle Player Ready
     function onPlayerReady(event) {
       playButton.addEventListener('click', () => {
-        // Hide the play button overlay
+        // Show the video container, hide the overlay
         playOverlay.style.display = 'none';
-        videoContainer.style.display = 'block'; // Show the video container
-        player.playVideo(); // Start video playback
+        videoContainer.style.display = 'block';
+
+        // Start playing the video
+        event.target.playVideo();
       });
     }
   </script>
